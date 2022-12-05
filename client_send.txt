@@ -1,10 +1,17 @@
-server string
-server string
-server string
-server string
-server string
-server string
-server string
-server string
-server string
-server string
+GET / HTTP/1.1
+Host: localhost:3030
+Connection: keep-alive
+sec-ch-ua: "Not?A_Brand";v="8", "Chromium";v="108", "Brave";v="108"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: ja
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Cookie: BetterErrors-2.9.1-CSRF-Token=da085d42-ffac-42fb-b7f4-9fc0b7d88710; __profilin=p%3Dt; _coffee_oma_session=gVRAwWOtfsnWGJ%2F41SVavh7Pqm6R9rrc%2Br6lAVs53VGdBXu9uxyeyaHvVGM%2BQD9QFSlbffJ8jypSed%2FiT7deD8mDEnL7D8NzX%2B7YL5qHpP1ioZX7qNnVJbGMl0unKbKc6LZcwG8btQ8G5V2LkQJNcB1vmQWzLSgwy5ZkYsQiG3l3sWlyWB2m6xa1zI3i0vVYU4YkKhC5tdl2CWduHF9g98VnoYP8teblJJe6r07VsL5n7nQu9fu0XG02HjtzouSDEOVY6wdves4eE6GVo8mvCrlH1vPcPkQOiVyn--hW4%2BpF%2BDR9aZ0H8U--LInhtsdFxvyZtbcxAlUKeA%3D%3D; animation-flag=true

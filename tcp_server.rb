@@ -7,8 +7,8 @@ begin
   puts 'クライアント接続'
 
   File.open('server_recv.txt', 'w') do |file|
-    while (ch = socket.read(1)) != '0'
-      file.write(ch)
+    while (line = socket.gets) != "\r\n"
+      file.write(line)
     end
   end
 
