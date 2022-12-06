@@ -1,7 +1,10 @@
 require 'socket'
 require 'date'
+require './http_response'
 
 class ServerThread
+  BASE_DIR = 'src'
+
   def initialize(socket)
     @socket = socket
   end
@@ -11,17 +14,12 @@ class ServerThread
       path = line.split(' ')[1] if line&.start_with?('GET')
     end
 
-    utc_date_string = DateTime.now.new_offset.strftime('%a, %d, %b, %Y, %H:%M:%S %Z GMT')
+    path_to_file = File.join(BASE_DIR, path)
 
-    @socket.write("HTTP/1.1 OK\n")
-    @socket.write("Date: #{utc_date_string}\n")
-    @socket.write("Server: RubySimpleServer\n")
-    @socket.write("Connection: close\n")
-    @socket.write("Content-type: text/html\n")
-    @socket.write("\r\n")
-
-    File.foreach("src/#{path}") do |line|
-      @socket.write(line)
+    if File.exist?(path_to_file)
+      HttpResponse.send_ok(@socket, path_to_file)
+    else
+      HttpResponse.send_not_found(@socket)
     end
   rescue StandardError => e
     puts e
