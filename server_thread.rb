@@ -1,7 +1,7 @@
 require 'socket'
 require 'date'
 require './http_response'
-
+require 'CGI'
 class ServerThread
   def initialize(socket)
     @socket = socket
@@ -12,16 +12,17 @@ class ServerThread
       path = line.split(' ')[1] if line&.start_with?('GET')
     end
 
-    path_to_file = File.join(Util::BASE_DIR, path)
+    decoded_path = CGI.unescape(path)
+    decoded_path_to_file = File.join(Util::BASE_DIR, decoded_path)
 
-    return HTTPResponse.send_not_found(@socket) unless Util.valid_path?(path_to_file)
+    return HTTPResponse.send_not_found(@socket) unless Util.valid_path?(decoded_path)
 
-    if File.directory?(path_to_file)
-      path_to_file = File.join(path_to_file, 'index.html')
-      location = "http://localhost:3030#{path_to_file}"
+    if File.directory?(decoded_path_to_file)
+      path_to_file = File.join(decoded_path, 'index.html')
+      location = "http://localhost:3030#{decoded_path_to_file}"
       HttpResponse.send_moved_permanently(@socket, location)
-    elsif File.exist?(path_to_file)
-      HttpResponse.send_ok(@socket, path_to_file)
+    elsif File.exist?(decoded_path_to_file)
+      HttpResponse.send_ok(@socket, decoded_path_to_file)
     else
       HttpResponse.send_not_found(@socket)
     end
