@@ -3,8 +3,6 @@ require 'date'
 require './http_response'
 
 class ServerThread
-  BASE_DIR = 'src'
-
   def initialize(socket)
     @socket = socket
   end
@@ -14,7 +12,9 @@ class ServerThread
       path = line.split(' ')[1] if line&.start_with?('GET')
     end
 
-    path_to_file = File.join(BASE_DIR, path)
+    path_to_file = File.join(Util::BASE_DIR, path)
+
+    return HTTPResponse.send_not_found(@socket) unless Util.is_valid_path?(path_to_file)
 
     if File.exist?(path_to_file)
       HttpResponse.send_ok(@socket, path_to_file)

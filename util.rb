@@ -13,6 +13,8 @@ module Util
     jpeg: 'image/jpeg',
     gif: 'image/gif'
   }.freeze
+  BASE_DIR = 'src'.freeze
+  ABSOLUTE_BASE_DIR = File.expand_path(BASE_DIR, __dir__)
 
   class << self
     def utc_date_string
@@ -25,6 +27,11 @@ module Util
 
     def content_type(ext)
       CONTENT_TYPES[ext] || 'application/octet-stream'
+    end
+
+    def is_valid_path?(path)
+      absolute_file_path = File.expand_path(File.join(ABSOLUTE_BASE_DIR), path)
+      absolute_file_path.start_with?(ABSOLUTE_BASE_DIR)
     end
   end
 end
