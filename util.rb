@@ -29,7 +29,7 @@ module Util
       CONTENT_TYPES[ext] || 'application/octet-stream'
     end
 
-    def is_valid_path?(path)
+    def valid_path?(path)
       absolute_file_path = File.expand_path(File.join(ABSOLUTE_BASE_DIR), path)
       absolute_file_path.start_with?(ABSOLUTE_BASE_DIR)
     end

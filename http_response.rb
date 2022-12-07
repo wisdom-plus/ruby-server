@@ -16,6 +16,17 @@ module HttpResponse
       write_body(socket, path)
     end
 
+    def send_moved_permanently(socket, location)
+      ext = Util.ext(location)&.to_sym
+      socket.write("HTTP/1.1 301 Moved Permanently\n")
+      socket.write("Date: #{Util.utc_date_string}\n")
+      socket.write("Server: #{SERVER_NAME}\n")
+      socket.write("Connectino: close\n")
+      socket.write("Content-type: #{Util.content_type(ext)}\n")
+      socket.write("Location: #{location}\n")
+      socket.write("\r\n")
+    end
+
     def send_not_found(socket)
       socket.write("HTTP/1.1 404 Not Found\n")
       socket.write("Date: #{Util.utc_date_string}\n")
